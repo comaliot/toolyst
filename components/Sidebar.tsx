@@ -1,4 +1,4 @@
-'use client'; // Required for client-side interactivity with shadcn components
+'use client';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -8,7 +8,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import Link from 'next/link';
-import { Menu } from 'lucide-react'; // Install lucide-react: `npm install lucide-react`
+import { Menu } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const categories = [
   { name: 'All Tools', href: '/' },
@@ -19,45 +20,61 @@ const categories = [
 
 export default function Sidebar() {
   return (
-    <aside className="fixed hidden w-64 h-screen p-4 bg-black border-r border-gray-500 md:static md:block">
-      <h2 className="mb-4 text-xl font-bold">Toolyst</h2>
-      <nav>
-        <ul>
-          {categories.map(category => (
-            <li key={category.name} className="mb-2">
-              <Link
-                href={category.href}
-                className="text-gray-300 transition-colors duration-200 hover:text-white"
-              >
-                {category.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
+    <>
+      {/* Desktop Sidebar */}
+      <aside className="fixed hidden w-64 h-screen p-4 bg-black border-r border-gray-500 md:static md:block">
+        <h2 className="mb-4 text-xl font-bold text-white">Toolyst</h2>
+        <nav>
+          <ul>
+            {categories.map(category => (
+              <li key={category.name} className="mb-2">
+                <Link
+                  href={category.href}
+                  className="text-gray-300 transition-colors duration-200 hover:text-white"
+                >
+                  {category.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </aside>
 
-      {/* Mobile Dropdown */}
-      <div className="fixed md:hidden top-4 right-4">
+      {/* Mobile Dropdown Menu */}
+      <div className="fixed z-50 md:hidden top-4 right-4">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              className="text-white bg-black border-gray-500"
+              className="w-12 h-12 text-white bg-black border-gray-500 hover:bg-gray-800"
             >
               <Menu className="w-6 h-6" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="text-white bg-black border-gray-500">
-            {categories.map(category => (
-              <DropdownMenuItem key={category.name} asChild>
-                <Link href={category.href} className="w-full">
-                  {category.name}
-                </Link>
-              </DropdownMenuItem>
-            ))}
+          <DropdownMenuContent
+            className="w-48 mr-2 text-white bg-black border-gray-500"
+            align="end"
+            asChild
+          >
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {categories.map(category => (
+                <DropdownMenuItem key={category.name} asChild>
+                  <Link
+                    href={category.href}
+                    className="w-full text-gray-300 transition-colors duration-200 hover:text-white hover:bg-gray-800"
+                  >
+                    {category.name}
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+            </motion.div>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-    </aside>
+    </>
   );
 }
