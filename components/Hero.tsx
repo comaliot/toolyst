@@ -1,13 +1,22 @@
+'use client';
+
+import { motion } from 'framer-motion';
+
 export default function Hero() {
   return (
-    <section className="py-16 text-center bg-black border-b border-gray-500">
-      <h2 className="text-4xl font-bold text-white animate-fade-in">
+    <motion.section
+      className="py-20 text-center bg-black border-b border-gray-700"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+    >
+      <h2 className="mb-4 text-5xl font-bold text-white">
         Discover Useful Online Tools
       </h2>
-      <p className="mt-4 text-gray-300 animate-fade-in-up">
+      <p className="max-w-2xl mx-auto text-lg text-gray-300">
         Explore a curated collection of tools to boost your productivity,
         design, and development.
       </p>
-    </section>
+    </motion.section>
   );
 }

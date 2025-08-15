@@ -53,7 +53,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} bg-black text-white`}>
         <Header />
-        <div className="flex flex-col min-h-screen pt-16 md:flex-row md:pt-0">
+        <div className="flex flex-col min-h-screen pt-24 md:flex-row md:pt-0">
           <Sidebar />
           <div className="flex-1">{children}</div>
         </div>
